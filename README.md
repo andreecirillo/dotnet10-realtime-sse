@@ -89,7 +89,7 @@ $env:HEADED="1"; dotnet test
 
 When running locally via `start-alci.ps1`, the script ensures a clean exit by automatically terminating all related `dotnet` processes, preventing port-lock issues for your next session.
 
-## 📝 [!IMPORTANT]
+## 📝 Blog Post
 I’ve written a detailed article explaining the "Why" and "How" of this architecture on my blog:  
 🔗 **Beyond WebSockets: High-Performance Real-Time Streaming with .NET 10 Server-Sent Events (SSE)]([[https://andreecirillo.hashnode.dev/challeges-jsonprocessing-csharp](https://andreecirillo.hashnode.dev/beyond-websockets-high-performance-real-time-streaming-with-net-10-server-sent-events-sse)](https://andreecirillo.hashnode.dev/beyond-websockets-high-performance-real-time-streaming-with-net-10-server-sent-events-sse))**
 
