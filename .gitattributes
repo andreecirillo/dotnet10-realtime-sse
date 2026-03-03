@@ -1,8 +1,8 @@
-*.html linguist-vendored
-*.js linguist-vendored
-*.css linguist-vendored
+*.html linguist-detectable=false
+*.js linguist-detectable=false
+*.css linguist-detectable=false
 
-tools/* linguist-vendored
-wwwroot/* linguist-vendored
+tools/* linguist-documentation
+wwwroot/* linguist-documentation
 
-*.cs linguist-detectable
+*.cs linguist-detectable=true
