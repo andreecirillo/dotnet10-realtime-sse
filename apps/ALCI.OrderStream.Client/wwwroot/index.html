@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALCI</title>
+    <base href="/" />
+
+    <link rel="icon" type="image/png" href="icon-192.png" />
+
+    <link rel="preload" id="webassembly" />
+
+    <link rel="stylesheet" href="css/tailwind.css" />
+
+    <script type="importmap"></script>
+</head>
+
+<body class="bg-slate-50">
+    <div id="app">
+        <div class="flex min-h-screen items-center justify-center bg-slate-50">
+            <div class="h-12 w-12 animate-spin rounded-full border-4 border-blue-600 border-t-transparent"></div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui" class="hidden">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+
+    <script src="js/sse.js"></script>
+    <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+﻿@import "tailwindcss";
+
+:root {
+    --color-slate-50: #f8fafc;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #f8fafc;
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+h1:focus {
+    outline: none;
+}
+
+h1:focus-visible {
+    outline: none;
+}
+
+@keyframes bounce-slow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 4s ease-in-out infinite;
+}

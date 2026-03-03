@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.3" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.3" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\core\ALCI.OrderStream.Domain\ALCI.OrderStream.Domain.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Watch Include="Styles\app.css" />
+		<Watch Include="**\*.razor" />
+		<Content Update="wwwroot\css\tailwind.css" Watch="false" />
+	</ItemGroup>
+
+	<Target Name="Tailwind" BeforeTargets="Build">
+		<Message Importance="high" Text="ALCI Engine: Gerando CSS com Tailwind 4..." />
+
+		<Exec Condition="$([MSBuild]::IsOSPlatform('Windows'))"
+			Command="$(ProjectDir)..\..\tools\tailwind\tailwindcss-windows-x64.exe -i ./Styles/app.css -o ./wwwroot/css/tailwind.css" />
+
+		<Exec Condition="$([MSBuild]::IsOSPlatform('Linux'))"
+			  Command="chmod +x ../../tools/tailwind/tailwindcss-linux-x64 &amp;&amp; ../../tools/tailwind/tailwindcss-linux-x64 -i ./Styles/app.css -o ./wwwroot/css/tailwind.css" />
+	</Target>
+
+</Project>

@@ -1,0 +1,60 @@
+﻿@page "/"
+
+<PageTitle>ALCI - Order Stream</PageTitle>
+
+<div class="w-full max-w-[600px] rounded-2xl border-2 border-slate-900 bg-white p-10 shadow-2xl animate-in fade-in zoom-in duration-300">
+    <header class="mb-8 flex items-center gap-4 border-b border-slate-100 pb-8">
+        <img src="icon-192.png" alt="Logo" class="h-14 w-14 rounded-xl border border-slate-200 p-1 shadow-sm" />
+        <div>
+            <h1 class="text-3xl font-black tracking-tight text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-400 leading-tight">
+                Order Stream
+            </h1>            
+            <p class="mt-1 text-sm font-medium text-slate-400">
+                Powered by: <span class="font-bold">.NET 10</span> and <span class="font-bold">Server-Sent Events (SSE)</span>
+            </p>
+        </div>
+    </header>
+
+    <section class="text-center">
+        <div class="mb-8 flex flex-wrap justify-center gap-2">
+            <span class="rounded bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600 uppercase tracking-tight">
+                C#
+            </span>
+            <span class="rounded bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600 uppercase tracking-tight">
+                Blazor (Web Assembly)
+            </span>
+            <span class="rounded bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600 uppercase tracking-tight">
+                ASP.NET Core Web API
+            </span>
+            <span class="rounded bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600 uppercase tracking-tight">
+                Tailwind CSS (Native Binary)
+            </span>
+        </div>
+
+        <p class="mb-10 text-slate-600 font-medium leading-relaxed text-justify">
+            Built with <span class="font-mono text-pink-500 text-sm tracking-tight">System.Threading.Channels</span>
+            to ensure <span class="font-bold text-slate-900">reactive browser updates</span>.
+            Optimized via <span class="text-slate-900 font-medium">Blazor WASM</span>
+            and <span class="text-blue-600 font-medium">SSE</span> for
+            <span class="font-bold text-slate-900">secure real-time streaming</span>,
+            utilizing the <span class="text-cyan-600 font-medium">Tailwind CSS v4 Native DLL</span>
+            for <span class="font-bold text-slate-900">lightning-fast UI compilation</span>.
+            The definitive standard for performance and security leveraged by <span class="font-bold text-slate-900">Microsoft</span>.
+        </p>
+
+        <div class="space-y-4">
+            <a href="/order-tracking/550e8400-e29b-41d4-a716-446655440000"
+               class="group relative inline-flex items-center justify-center rounded-xl bg-blue-600 px-8 py-4 font-bold text-white transition-all hover:bg-blue-700 active:scale-95 shadow-lg shadow-blue-200">
+                <span class="relative flex items-center gap-2">
+                    🚀 Track ORDER
+                </span>
+            </a>
+        </div>
+
+        <div class="mt-10 flex flex-col items-center gap-2 border-t border-slate-100 pt-6">
+            <div class="text-[10px] font-black tracking-[0.2em] text-slate-300 uppercase">
+                System Status: <span class="text-green-500">Operational</span>
+            </div>
+        </div>
+    </section>
+</div>

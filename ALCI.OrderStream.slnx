@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/apps/">
+    <Project Path="apps/ALCI.OrderStream.API/ALCI.OrderStream.API.csproj" />
+    <Project Path="apps/ALCI.OrderStream.Client/ALCI.OrderStream.Client.csproj" />
+  </Folder>
+  <Folder Name="/core/">
+    <Project Path="core/ALCI.OrderStream.Domain/ALCI.OrderStream.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".dockerignore" />
+    <File Path=".gitignore" />
+    <File Path="docker-compose.yml" />
+    <File Path="README.md" />
+    <File Path="README.pt-BR.md" />
+    <File Path="start-alci-docker.ps1" />
+    <File Path="start-alci.ps1" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ALCI.OrderStream.API.Tests/ALCI.OrderStream.API.Tests.csproj" Id="966d74cd-2bfe-4b91-861d-770e4947dc85" />
+    <Project Path="tests/ALCI.OrderStream.Client.Tests/ALCI.OrderStream.Client.Tests.csproj" />
+    <Project Path="tests/ALCI.OrderStream.E2E.Tests/ALCI.OrderStream.E2E.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/" />
+  <Folder Name="/tools/tailwind/">
+    <File Path="tools/tailwindcss/tailwindcss-linux-x64" />
+    <File Path="tools/tailwindcss/tailwindcss-windows-x64.exe" />
+  </Folder>
+</Solution>

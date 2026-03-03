@@ -1,0 +1,194 @@
+﻿@page "/order-tracking/{OrderId:guid}"
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Config
+@using ALCI.OrderStream.Domain.Models
+@using ALCI.OrderStream.Domain.Enums
+@implements IAsyncDisposable
+@inject IJSRuntime JS
+
+<PageTitle>ALCI - Order Tracking</PageTitle>
+
+<div class="w-full max-w-[650px] rounded-2xl border-2 border-slate-900 bg-white p-8 md:p-10 shadow-2xl animate-in fade-in zoom-in duration-300">
+
+    <header class="mb-6 flex items-start justify-between">
+        <div class="flex items-center gap-4">
+            <img src="icon-192.png" alt="Logo" class="h-12 w-12 rounded-xl border border-slate-200 p-1 shadow-sm" />
+            <div>
+                <h2 class="text-2xl font-black text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-cyan-400 uppercase tracking-tight">
+                    Order Tracking
+                </h2>
+                <p class="text-[10px] font-bold text-slate-400">
+                    Powered by .NET 10 & SSE
+                </p>
+            </div>
+        </div>
+        <a href="/" class="text-xs font-black text-slate-400 hover:text-slate-900 transition-colors">← BACK</a>
+    </header>
+        
+    <div class="mb-4 flex items-center justify-between">
+        <span class="rounded bg-slate-100 px-2 py-0.5 font-mono text-[10px] font-bold text-slate-500 uppercase">
+            Order ID: @OrderId.ToString().ToUpper().Substring(0, 8)
+        </span>
+                
+        <a @onclick="ResetStream"
+           href="javascript:void(0)"
+           role="button"
+           class="group relative inline-flex items-center justify-center rounded-xl border-2 transition-all no-underline px-4 py-2 text-[10px] font-black uppercase tracking-widest
+                  @(IsStreamActive
+                               ? "border-slate-200 bg-slate-50 text-slate-300 cursor-not-allowed opacity-50" 
+                               : "border-slate-900 bg-white text-slate-900 cursor-pointer hover:bg-slate-900 hover:text-white active:scale-95 shadow-[4px_4px_0px_0px_rgba(15,23,42,1)]")">
+            <span class="relative flex items-center gap-2">
+                🔄 RESET STREAM
+            </span>
+        </a>
+    </div>
+
+    <div class="mb-10 border-b border-slate-100"></div>
+
+    <div class="relative min-h-[250px]">
+        @if (Updates.Count == 0)
+        {
+            <div class="flex flex-col items-center justify-center py-16 text-center animate-pulse">
+                <div class="mb-4 text-5xl">📡</div>
+                <p class="text-lg font-bold text-slate-500 text-transparent bg-clip-text bg-linear-to-r from-slate-400 to-slate-600">
+                    Connected to Live Stream
+                </p>
+            </div>
+        }
+        else
+        {
+            <div class="relative ml-4 border-l-2 border-slate-100 pl-8">
+                @foreach (var update in Updates.OrderByDescending(x => x.Timestamp))
+                {
+                    <div class="relative mb-8 last:mb-0 animate-in slide-in-from-right-4 duration-500">
+                        <div class="absolute -left-[39.5px] top-1.5 h-3.5 w-3.5 rounded-full border-4 border-white bg-blue-600 ring-2 ring-blue-600 shadow-[0_0_10px_rgba(37,99,235,0.5)]"></div>
+                        <div class="rounded-xl border border-slate-100 bg-slate-50 p-5 hover:border-blue-200 hover:bg-white transition-all shadow-sm">
+                            <div class="mb-2 flex items-center justify-between">
+                                <h5 class="text-base font-extrabold text-slate-900">@GetStatusDisplay(update.Status!.Value)</h5>
+                                <span class="rounded bg-white px-2 py-1 text-[9px] font-black text-slate-400 shadow-sm uppercase">
+                                    @update.Timestamp.ToLocalTime().ToString("hh:mm:ss tt")
+                                </span>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-400">@GetStatusDescription(update.Status!.Value)</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+        
+    <div class="mt-10 flex items-center justify-between border-t border-slate-50 pt-6">
+        <div class="flex items-center gap-2">
+            @if (IsStreamActive)
+            {
+                <div class="h-2 w-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulse"></div>
+                <span class="text-[9px] font-black tracking-[0.2em] text-slate-400 uppercase">Streaming Active</span>
+            }
+            else if (Updates.Any())
+            {
+                <div class="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.6)]"></div>
+                <span class="text-[9px] font-black tracking-[0.2em] text-slate-400 uppercase">Stream Closed</span>
+            }
+            else
+            {
+                <div class="h-2 w-2 rounded-full bg-slate-300"></div>
+                <span class="text-[9px] font-black tracking-[0.2em] text-slate-400 uppercase">Waiting for stream update...</span>
+            }
+        </div>
+    </div>
+
+    <div class="mt-8 flex flex-col items-center gap-2 border-t border-slate-100 pt-6">
+        <div class="text-[10px] font-black tracking-[0.2em] text-slate-300 uppercase">
+            System Status: <span class="text-green-500">Operational</span>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public Guid OrderId { get; set; }
+    private List<OrderStatusUpdate> Updates = new();
+    private IJSObjectReference? _sseModule;
+    private bool IsStreamActive = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await InitializeSSE();
+        }
+    }
+
+    private async Task InitializeSSE()
+    {
+        var baseUrl = Config["ApiSettings:BaseUrl"];
+        var fullUrl = $"{baseUrl}/orders/{OrderId}/stream";
+        var dotNetHelper = DotNetObjectReference.Create(this);
+        _sseModule = await JS.InvokeAsync<IJSObjectReference>("window.setupSSE", dotNetHelper, fullUrl);
+    }
+
+    private async Task ResetStream()
+    {        
+        if (IsStreamActive) return;
+
+        Updates.Clear();
+        IsStreamActive = false;
+
+        if (_sseModule is not null)
+        {
+            await _sseModule.InvokeVoidAsync("dispose");
+            _sseModule = null;
+        }
+
+        await InitializeSSE();
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void OnOrderUpdateReceived(OrderStatusUpdate update)
+    {
+        if (update.Status == null) return;
+
+        IsStreamActive = true;
+        if (!Updates.Any(u => u.Status == update.Status))
+        {
+            Updates.Add(update);
+            StateHasChanged();
+        }
+    }
+
+    [JSInvokable]
+    public void OnStreamStateChanged(bool isActive)
+    {
+        IsStreamActive = isActive;
+        StateHasChanged();
+    }
+
+    private string GetStatusDisplay(OrderStatus status) => status switch
+    {
+        OrderStatus.Created => "📦 Order Created",
+        OrderStatus.PaymentConfirmed => "💳 Payment Confirmed",
+        OrderStatus.Processing => "⚙️ Warehouse Processing",
+        OrderStatus.Shipped => "🚚 Out for Delivery",
+        OrderStatus.Delivered => "✅ Order Delivered",
+        _ => status.ToString()
+    };
+
+    private string GetStatusDescription(OrderStatus status) => status switch
+    {
+        OrderStatus.Created => "Your order has been registered in the system.",
+        OrderStatus.PaymentConfirmed => "Payment processed and verified successfully.",
+        OrderStatus.Processing => "Our team is preparing your items for shipment.",
+        OrderStatus.Shipped => "Package has been handed over to the carrier.",
+        OrderStatus.Delivered => "Package arrived at its destination.",
+        _ => "Status update received via SSE."
+    };
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_sseModule is not null)
+        {
+            await _sseModule.InvokeVoidAsync("dispose");
+            await _sseModule.DisposeAsync();
+        }
+    }
+}

@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+
+.dockerignore
+docker-compose.override.yml
+*.log
+
+.git/
+
+tools/tailwind/tailwindcss-windows-x64.exe

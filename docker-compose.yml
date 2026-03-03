@@ -1,0 +1,16 @@
+services:
+  order-api:
+    build:
+      context: .
+      dockerfile: apps/ALCI.OrderStream.API/Dockerfile
+    ports:
+      - "8081:8081"
+
+  order-client:
+    build:
+      context: .
+      dockerfile: apps/ALCI.OrderStream.Client/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - API_URL=http://localhost:8081

@@ -1,0 +1,17 @@
+### Environment Variables
+@Host = https://localhost:7217
+@OrderId = 550e8400-e29b-41d4-a716-446655440000
+
+### 1. Open Real-Time SSE Stream
+# This will keep the connection open to receive events
+GET {{Host}}/orders/{{OrderId}}/stream
+Accept: text/event-stream
+
+###
+
+### 2. Trigger Order Simulation
+# Run this while the SSE Stream (above) is active to see events
+POST {{Host}}/orders/{{OrderId}}/simulate
+Content-Type: application/json
+
+{}
