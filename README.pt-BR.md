@@ -92,7 +92,7 @@ Ao rodar localmente via `start-alci.ps1`, o script garante uma saída limpa ao e
 
 ## 📝 Blog Post
 Escrevi um artigo detalhado no meu blog explicando o 'Porquê' e o 'Como' desta arquitetura e de todas as otimizações aplicadas:  
-🔗 **Beyond WebSockets: High-Performance Real-Time Streaming with .NET 10 Server-Sent Events (SSE)]([[https://andreecirillo.hashnode.dev/challeges-jsonprocessing-csharp](https://andreecirillo.hashnode.dev/beyond-websockets-high-performance-real-time-streaming-with-net-10-server-sent-events-sse)](https://andreecirillo.hashnode.dev/beyond-websockets-high-performance-real-time-streaming-with-net-10-server-sent-events-sse))**
+🔗 **[Beyond WebSockets: High-Performance Real-Time Streaming with .NET 10 Server-Sent Events (SSE)](https://andreecirillo.hashnode.dev/beyond-websockets-high-performance-real-time-streaming-with-net-10-server-sent-events-sse)**
 
 ---
 **André Cirillo**
