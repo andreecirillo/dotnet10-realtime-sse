@@ -28,6 +28,16 @@ A solução segue uma estrutura modular projetada para desenvolvimento de alta v
 * **Multi-Ambiente**: Hierarquia inteligente de `appsettings` que gerencia automaticamente o mapeamento de portas entre Dev Local (**7038/7217**) e Docker (**8080/8081**).
 * **Observabilidade**: Logging estruturado e trilha de auditoria (**audit trail**) detalhada.
 
+## ⚙️ Pré-requisitos (Configuração Nativa do Tailwind)
+
+Para manter um ambiente **Zero-Node.js**, este projeto utiliza os binários autônomos da CLI do Tailwind. Devido aos limites de tamanho de arquivo do GitHub, você deve baixá-los manualmente:
+
+1. Acesse [Tailwind CSS Releases](https://github.com/tailwindlabs/tailwindcss/releases).
+2. Baixe os seguintes binários e coloque-os na pasta `tools/tailwind/`:
+    * **Windows**: `tailwindcss-windows-x64.exe` (necessário para Hot Reload).
+    * **Linux**: `tailwindcss-linux-x64` (necessário para builds Docker/Linux).
+3. **Importante**: Certifique-se de que os nomes dos arquivos correspondam exatamente aos listados acima para que os scripts de automação funcionem.
+
 ## 🚀 Execução & Implantação
 
 ### Opção A: Desenvolvimento Local (Windows)

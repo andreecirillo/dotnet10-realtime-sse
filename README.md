@@ -28,6 +28,16 @@ The solution follows a modular structure designed for high-speed development and
 * **Multi-Environment**: Intelligent `appsettings` hierarchy that automatically handles port mapping between Local Dev (**7038/7217**) and Docker (**8080/8081**).
 * **Observability**: Structured logging and detailed **audit trail**.
 
+## ⚙️ Prerequisites (Tailwind Native Setup)
+
+To maintain a **Zero-Node.js** environment, this project requires the standalone Tailwind CLI binaries. Due to GitHub file size limits, you must download them manually:
+
+1. Visit the [Tailwind CSS Releases](https://github.com/tailwindlabs/tailwindcss/releases).
+2. Download the following binaries and place them in the `tools/tailwind/` folder:
+    * **Windows**: `tailwindcss-windows-x64.exe` (required for Hot Reload).
+    * **Linux**: `tailwindcss-linux-x64` (required for Docker/Linux builds).
+3. **Important**: Ensure the filenames match exactly as listed above for the automation scripts to work.
+
 ## 🚀 Execution & Deployment
 
 ### Option A: Local Development (Windows)
