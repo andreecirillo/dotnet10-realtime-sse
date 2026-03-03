@@ -1,3 +1,5 @@
+*.cs linguist-language=c#
+
 *.html linguist-detectable=false
 *.js linguist-detectable=false
 *.css linguist-detectable=false
@@ -6,4 +8,3 @@
 *.js linguist-vendored
 *.css linguist-vendored
 
-*.cs linguist-language=c#
