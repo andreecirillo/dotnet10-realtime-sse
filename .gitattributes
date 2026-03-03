@@ -1,3 +1,8 @@
-*.css linguist-vendored
+*.html linguist-vendored
 *.js linguist-vendored
-tools/** linguist-vendored
+*.css linguist-vendored
+
+tools/* linguist-vendored
+wwwroot/* linguist-vendored
+
+*.cs linguist-detectable
