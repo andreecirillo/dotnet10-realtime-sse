@@ -2,6 +2,10 @@
 *.js linguist-detectable=false
 *.css linguist-detectable=false
 
+*.html linguist-vendored
+*.js linguist-vendored
+*.css linguist-vendored
+
 tools/* linguist-documentation
 wwwroot/* linguist-documentation
 
