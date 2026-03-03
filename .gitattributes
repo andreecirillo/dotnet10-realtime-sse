@@ -1,11 +1,15 @@
-* text=auto
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.js linguist-detectable=false
 
-*.cs linguist-language=csharp
-*.csproj linguist-language=csharp
-*.sln linguist-language=csharp
-*.md linguist-detectable=true
-*.md linguist-documentation=false
+wwwroot/** linguist-vendored
+tools/** linguist-vendored
 
-src/*/wwwroot/* linguist-documentation
-wwwroot/** linguist-documentation
-*/bin/* linguist-documentation
+*.cs linguist-detectable=true
+*.cs linguist-language=C#
+
+*.csproj linguist-language=C#
+*.sln linguist-language=C#
+
+README.md linguist-documentation
+README.pt-BR.md linguist-documentation
