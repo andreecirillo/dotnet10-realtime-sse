@@ -5,8 +5,3 @@
 *.html linguist-vendored
 *.js linguist-vendored
 *.css linguist-vendored
-
-tools/* linguist-documentation
-wwwroot/* linguist-documentation
-
-*.cs linguist-language=C#
