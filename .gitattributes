@@ -5,4 +5,4 @@
 tools/* linguist-documentation
 wwwroot/* linguist-documentation
 
-*.cs linguist-detectable=true
+*.cs linguist-language=C#
